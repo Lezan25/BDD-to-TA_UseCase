@@ -139,13 +139,21 @@ c=0</label>
 		<name>RawStorage</name>
 		<parameter>id_type id</parameter>
 		<location id="id9" x="-59" y="-153">
-			<name x="-76" y="-187">idle</name>
+			<name x="-93" y="-187">idle</name>
 		</location>
 		<location id="id10" x="-59" y="127">
 			<name x="-76" y="136">empty</name>
 		</location>
 		<init ref="id9"/>
 		<transition id="id11">
+			<source ref="id9"/>
+			<target ref="id9"/>
+			<label kind="synchronisation" x="136" y="-255">Restock?</label>
+			<label kind="assignment" x="76" y="-314">RawStorage_Level=100</label>
+			<nail x="161" y="-212"/>
+			<nail x="42" y="-323"/>
+		</transition>
+		<transition id="id12">
 			<source ref="id10"/>
 			<target ref="id9"/>
 			<label kind="synchronisation" x="110" y="17">Restock?</label>
@@ -154,13 +162,13 @@ RawStorage_Level=100</label>
 			<nail x="102" y="127"/>
 			<nail x="102" y="-153"/>
 		</transition>
-		<transition id="id12">
+		<transition id="id13">
 			<source ref="id9"/>
 			<target ref="id10"/>
 			<label kind="synchronisation" x="-136" y="-59">RequestRawIngredients4?</label>
 			<label kind="assignment" x="-136" y="-8">RawStorage_State=EMPTY</label>
 		</transition>
-		<transition id="id13">
+		<transition id="id14">
 			<source ref="id9"/>
 			<target ref="id10"/>
 			<label kind="synchronisation" x="-382" y="-93">RequestRawIngredients4?</label>
@@ -173,70 +181,70 @@ RawStorage_Level=100</label>
 		<name>DoughMaker</name>
 		<parameter>id_type id</parameter>
 		<declaration>clock c;</declaration>
-		<location id="id14" x="-416" y="-314">
+		<location id="id15" x="-416" y="-314">
 			<name x="-433" y="-348">idle</name>
 		</location>
-		<location id="id15" x="-425" y="119">
+		<location id="id16" x="-425" y="119">
 			<name x="-518" y="85">requesting</name>
 			<label kind="invariant" x="-476" y="102">c&lt;=5</label>
 		</location>
-		<location id="id16" x="161" y="119">
+		<location id="id17" x="161" y="119">
 			<name x="178" y="102">processing</name>
 			<label kind="invariant" x="178" y="119">c&lt;=5</label>
 		</location>
-		<location id="id17" x="280" y="-314">
+		<location id="id18" x="280" y="-314">
 			<name x="297" y="-331">finishing_processing</name>
 			<label kind="invariant" x="297" y="-314">c&lt;=5</label>
 		</location>
-		<init ref="id14"/>
-		<transition id="id18">
-			<source ref="id16"/>
-			<target ref="id17"/>
+		<init ref="id15"/>
+		<transition id="id19">
+			<source ref="id17"/>
+			<target ref="id18"/>
 			<label kind="synchronisation" x="246" y="-85">PackagingMachineFinishes6?</label>
 			<nail x="331" y="-25"/>
 		</transition>
-		<transition id="id19">
-			<source ref="id17"/>
-			<target ref="id14"/>
+		<transition id="id20">
+			<source ref="id18"/>
+			<target ref="id15"/>
 			<label kind="guard" x="76" y="-357">c==5</label>
-			<label kind="synchronisation" x="-187" y="-382">PackagingMachineFinishes6Finishes</label>
+			<label kind="synchronisation" x="-187" y="-382">PackagingMachineFinishes6Finishes!</label>
 			<label kind="assignment" x="-331" y="-365">DoughMaker_State=IDLE,
 DoughShaper_Queue+=1</label>
 			<nail x="-51" y="-365"/>
 		</transition>
-		<transition id="id20">
-			<source ref="id17"/>
-			<target ref="id14"/>
+		<transition id="id21">
+			<source ref="id18"/>
+			<target ref="id15"/>
 			<label kind="guard" x="59" y="-263">c==5</label>
 			<label kind="synchronisation" x="-170" y="-238">PackagingMachineFinishes4Finishes!</label>
 			<label kind="assignment" x="-263" y="-280">DoughMaker_State=IDLE,
 DoughShaper_Queue+=1</label>
 			<nail x="-51" y="-238"/>
 		</transition>
-		<transition id="id21">
-			<source ref="id16"/>
-			<target ref="id17"/>
+		<transition id="id22">
+			<source ref="id17"/>
+			<target ref="id18"/>
 			<label kind="synchronisation" x="76" y="-144">PackagingMachineFinishes4?</label>
 		</transition>
-		<transition id="id22">
-			<source ref="id15"/>
-			<target ref="id14"/>
+		<transition id="id23">
+			<source ref="id16"/>
+			<target ref="id15"/>
 			<label kind="synchronisation" x="-986" y="-178">PackagingMachineFinishes5?</label>
 			<label kind="assignment" x="-952" y="-331">DoughMaker_State=IDLE</label>
 			<nail x="-867" y="161"/>
 			<nail x="-867" y="-314"/>
 		</transition>
-		<transition id="id23">
-			<source ref="id15"/>
-			<target ref="id14"/>
+		<transition id="id24">
+			<source ref="id16"/>
+			<target ref="id15"/>
 			<label kind="synchronisation" x="-841" y="-110">PackagingMachineFinishes3?</label>
 			<label kind="assignment" x="-833" y="-246">DoughMaker_State=IDLE</label>
 			<nail x="-765" y="119"/>
 			<nail x="-765" y="-280"/>
 		</transition>
-		<transition id="id24">
-			<source ref="id16"/>
-			<target ref="id15"/>
+		<transition id="id25">
+			<source ref="id17"/>
+			<target ref="id16"/>
 			<label kind="guard" x="119" y="-42">c==5</label>
 			<label kind="synchronisation" x="-102" y="-42">DoughProcessingFinishes!</label>
 			<label kind="assignment" x="-357" y="-42">DoughMaker_State=REQUESTING,
@@ -244,18 +252,18 @@ c=0</label>
 			<nail x="161" y="-25"/>
 			<nail x="-340" y="-25"/>
 		</transition>
-		<transition id="id25">
-			<source ref="id15"/>
-			<target ref="id15"/>
+		<transition id="id26">
+			<source ref="id16"/>
+			<target ref="id16"/>
 			<label kind="guard" x="-595" y="255">RawStorage_Level&lt;5</label>
 			<label kind="synchronisation" x="-671" y="204">RequestRawIngredients5!</label>
 			<label kind="assignment" x="-603" y="153">c=0</label>
 			<nail x="-484" y="263"/>
 			<nail x="-603" y="178"/>
 		</transition>
-		<transition id="id26">
-			<source ref="id15"/>
-			<target ref="id16"/>
+		<transition id="id27">
+			<source ref="id16"/>
+			<target ref="id17"/>
 			<label kind="guard" x="-416" y="229">RawStorage_Level==5 &amp;&amp;
 c==5</label>
 			<label kind="synchronisation" x="-238" y="246">RequestRawIngredients4!</label>
@@ -264,9 +272,9 @@ DoughMaker_State=PROCESSING</label>
 			<nail x="-425" y="246"/>
 			<nail x="161" y="246"/>
 		</transition>
-		<transition id="id27">
-			<source ref="id15"/>
-			<target ref="id16"/>
+		<transition id="id28">
+			<source ref="id16"/>
+			<target ref="id17"/>
 			<label kind="guard" x="-331" y="93">RawStorage_Level&gt;=21 &amp;&amp;
 RawStorage_Level&lt;=26 &amp;&amp;
 c==5</label>
@@ -274,18 +282,18 @@ c==5</label>
 			<label kind="assignment" x="-85" y="93">RawStorage_Level-=5, c=0,
 DoughMaker_State=PROCESSING</label>
 		</transition>
-		<transition id="id28">
-			<source ref="id15"/>
-			<target ref="id16"/>
+		<transition id="id29">
+			<source ref="id16"/>
+			<target ref="id17"/>
 			<label kind="guard" x="-331" y="161">RawStorage_Level&gt;25 &amp;&amp;
 c==5</label>
 			<label kind="assignment" x="-110" y="161">RawStorage_Level-=5, c=0,
 DoughMaker_State=PROCESSING</label>
 			<nail x="-144" y="212"/>
 		</transition>
-		<transition id="id29">
-			<source ref="id15"/>
-			<target ref="id16"/>
+		<transition id="id30">
+			<source ref="id16"/>
+			<target ref="id17"/>
 			<label kind="guard" x="-331" y="25">RawStorage_Level&gt;=6 &amp;&amp;
 RawStorage_Level&lt;=20 &amp;&amp;
 c==5</label>
@@ -293,16 +301,16 @@ c==5</label>
 DoughMaker_State=PROCESSING</label>
 			<nail x="-153" y="17"/>
 		</transition>
-		<transition id="id30">
-			<source ref="id14"/>
-			<target ref="id15"/>
+		<transition id="id31">
+			<source ref="id15"/>
+			<target ref="id16"/>
 			<label kind="synchronisation" x="-416" y="-229">UserOrdersProducts3?</label>
 			<label kind="assignment" x="-416" y="-127">DoughMaker_State=REQUESTING,
 c=0</label>
 		</transition>
-		<transition id="id31">
-			<source ref="id14"/>
-			<target ref="id15"/>
+		<transition id="id32">
+			<source ref="id15"/>
+			<target ref="id16"/>
 			<label kind="synchronisation" x="-595" y="-229">UserStarts?</label>
 			<label kind="assignment" x="-697" y="-51">DoughMaker_State=REQUESTING,
 c=0</label>
@@ -313,47 +321,47 @@ c=0</label>
 		<name>DoughShaper</name>
 		<parameter>id_type id</parameter>
 		<declaration>clock c;</declaration>
-		<location id="id32" x="-221" y="-153">
+		<location id="id33" x="-221" y="-153">
 			<name x="-238" y="-187">idle</name>
 		</location>
-		<location id="id33" x="-221" y="203">
+		<location id="id34" x="-221" y="203">
 			<name x="-289" y="212">shaping</name>
 			<label kind="invariant" x="-263" y="229">c&lt;=5</label>
 		</location>
-		<init ref="id32"/>
-		<transition id="id34">
-			<source ref="id32"/>
-			<target ref="id33"/>
+		<init ref="id33"/>
+		<transition id="id35">
+			<source ref="id33"/>
+			<target ref="id34"/>
 			<label kind="synchronisation" x="-153" y="-93">PackagingMachineFinishes6Finishes?</label>
 			<label kind="assignment" x="-34" y="0">c=0</label>
 			<nail x="-42" y="-85"/>
 			<nail x="-42" y="68"/>
 		</transition>
-		<transition id="id35">
-			<source ref="id33"/>
-			<target ref="id33"/>
+		<transition id="id36">
+			<source ref="id34"/>
+			<target ref="id34"/>
 			<label kind="synchronisation" x="-76" y="399">PackagingMachineFinishes6Finishes?</label>
 			<nail x="-110" y="425"/>
 			<nail x="-51" y="382"/>
 		</transition>
-		<transition id="id36">
-			<source ref="id33"/>
-			<target ref="id33"/>
+		<transition id="id37">
+			<source ref="id34"/>
+			<target ref="id34"/>
 			<label kind="synchronisation" x="-467" y="374">PackagingMachineFinishes4Finishes?</label>
 			<nail x="-221" y="365"/>
 			<nail x="-178" y="365"/>
 		</transition>
-		<transition id="id37">
-			<source ref="id32"/>
-			<target ref="id33"/>
+		<transition id="id38">
+			<source ref="id33"/>
+			<target ref="id34"/>
 			<label kind="synchronisation" x="145" y="-85">PackagingMachineFinishes4Finishes?</label>
 			<label kind="assignment" x="145" y="25">c=0</label>
 			<nail x="136" y="-153"/>
 			<nail x="136" y="110"/>
 		</transition>
-		<transition id="id38">
-			<source ref="id33"/>
-			<target ref="id33"/>
+		<transition id="id39">
+			<source ref="id34"/>
+			<target ref="id34"/>
 			<label kind="guard" x="-59" y="246">DoughShaper_Queue&gt;1 &amp;&amp;
 c==5</label>
 			<label kind="synchronisation" x="-59" y="229">DoughShapingFinishes2!</label>
@@ -363,18 +371,18 @@ c=0</label>
 			<nail x="-68" y="289"/>
 			<nail x="-68" y="204"/>
 		</transition>
-		<transition id="id39">
-			<source ref="id33"/>
-			<target ref="id32"/>
+		<transition id="id40">
+			<source ref="id34"/>
+			<target ref="id33"/>
 			<label kind="guard" x="-289" y="85">DoughShaper_Queue==1 &amp;&amp;
 c==5</label>
 			<label kind="synchronisation" x="-289" y="25">DoughShapingFinishes1!</label>
 			<label kind="assignment" x="-289" y="-59">DoughShaper_State=IDLE,
 DoughShaper_Queue=0</label>
 		</transition>
-		<transition id="id40">
-			<source ref="id32"/>
-			<target ref="id33"/>
+		<transition id="id41">
+			<source ref="id33"/>
+			<target ref="id34"/>
 			<label kind="synchronisation" x="-595" y="-68">DoughProcessingFinishes?</label>
 			<label kind="assignment" x="-603" y="59">DoughShaper_State=SHAPING,
 DoughShaper_Queue+=1,
@@ -387,17 +395,17 @@ c=0</label>
 		<name>BakingOven</name>
 		<parameter>id_type id</parameter>
 		<declaration>clock c;</declaration>
-		<location id="id41" x="-93" y="152">
+		<location id="id42" x="-93" y="152">
 			<name x="-153" y="161">baking</name>
 			<label kind="invariant" x="-135" y="178">c&lt;=5</label>
 		</location>
-		<location id="id42" x="-93" y="-204">
+		<location id="id43" x="-93" y="-204">
 			<name x="-110" y="-238">idle</name>
 		</location>
-		<init ref="id42"/>
-		<transition id="id43">
-			<source ref="id42"/>
-			<target ref="id41"/>
+		<init ref="id43"/>
+		<transition id="id44">
+			<source ref="id43"/>
+			<target ref="id42"/>
 			<label kind="synchronisation" x="-612" y="-59">DoughShapingFinishes1?</label>
 			<label kind="assignment" x="-612" y="-8">BakingOven_State=BAKING,
 BakingOven_Queue+=1,
@@ -405,9 +413,9 @@ c=0</label>
 			<nail x="-467" y="-204"/>
 			<nail x="-467" y="153"/>
 		</transition>
-		<transition id="id44">
-			<source ref="id41"/>
-			<target ref="id41"/>
+		<transition id="id45">
+			<source ref="id42"/>
+			<target ref="id42"/>
 			<label kind="guard" x="69" y="204">BakingOven_Queue&gt;1 &amp;&amp;
 c==5</label>
 			<label kind="synchronisation" x="69" y="178">BakingOvenFinishes2!</label>
@@ -416,18 +424,18 @@ c==5</label>
 			<nail x="60" y="238"/>
 			<nail x="60" y="153"/>
 		</transition>
-		<transition id="id45">
-			<source ref="id41"/>
-			<target ref="id42"/>
+		<transition id="id46">
+			<source ref="id42"/>
+			<target ref="id43"/>
 			<label kind="guard" x="-161" y="34">BakingOven_Queue==1 &amp;&amp;
 c==5</label>
 			<label kind="synchronisation" x="-161" y="-26">BakingOvenFinishes1!</label>
 			<label kind="assignment" x="-161" y="-102">BakingOven_State=IDLE,
 BakingOven_Queue=0</label>
 		</transition>
-		<transition id="id46">
-			<source ref="id42"/>
-			<target ref="id41"/>
+		<transition id="id47">
+			<source ref="id43"/>
+			<target ref="id42"/>
 			<label kind="synchronisation" x="-399" y="-59">DoughShapingFinishes2?</label>
 			<label kind="assignment" x="-399" y="-8">BakingOven_State=BAKING,
 BakingOven_Queue+=1,
@@ -440,17 +448,17 @@ c=0</label>
 		<name>CoolingRack</name>
 		<parameter>id_type id</parameter>
 		<declaration>clock c;</declaration>
-		<location id="id47" x="-76" y="-195">
+		<location id="id48" x="-76" y="-195">
 			<name x="-93" y="-229">idle</name>
 		</location>
-		<location id="id48" x="-76" y="161">
+		<location id="id49" x="-76" y="161">
 			<name x="-144" y="170">cooling</name>
 			<label kind="invariant" x="-118" y="187">c&lt;=5</label>
 		</location>
-		<init ref="id47"/>
-		<transition id="id49">
-			<source ref="id47"/>
-			<target ref="id48"/>
+		<init ref="id48"/>
+		<transition id="id50">
+			<source ref="id48"/>
+			<target ref="id49"/>
 			<label kind="synchronisation" x="-595" y="-50">BakingOvenFinishes1?</label>
 			<label kind="assignment" x="-595" y="1">CoolingRack_State=COOLING,
 CoolingRack_Queue+=1,
@@ -458,9 +466,9 @@ c=0</label>
 			<nail x="-450" y="-195"/>
 			<nail x="-450" y="162"/>
 		</transition>
-		<transition id="id50">
-			<source ref="id48"/>
-			<target ref="id48"/>
+		<transition id="id51">
+			<source ref="id49"/>
+			<target ref="id49"/>
 			<label kind="guard" x="86" y="213">CoolingRack_Queue&gt;1 &amp;&amp;
 c==5</label>
 			<label kind="synchronisation" x="86" y="187">CoolingRackFinishes2!</label>
@@ -469,18 +477,18 @@ c==5</label>
 			<nail x="77" y="247"/>
 			<nail x="77" y="162"/>
 		</transition>
-		<transition id="id51">
-			<source ref="id48"/>
-			<target ref="id47"/>
+		<transition id="id52">
+			<source ref="id49"/>
+			<target ref="id48"/>
 			<label kind="guard" x="-144" y="43">CoolingRack_Queue==1 &amp;&amp;
 c==5</label>
 			<label kind="synchronisation" x="-144" y="-17">CoolingRackFinishes1!</label>
 			<label kind="assignment" x="-144" y="-93">CoolingRack_State=IDLE,
 CoolingRack_Queue=0</label>
 		</transition>
-		<transition id="id52">
-			<source ref="id47"/>
-			<target ref="id48"/>
+		<transition id="id53">
+			<source ref="id48"/>
+			<target ref="id49"/>
 			<label kind="synchronisation" x="-382" y="-50">BakingOvenFinishes2?</label>
 			<label kind="assignment" x="-382" y="1">CoolingRack_State=COOLING,
 CoolingRack_Queue+=1,
@@ -493,17 +501,17 @@ c=0</label>
 		<name>PackagingMachine</name>
 		<parameter>id_type id</parameter>
 		<declaration>clock c;</declaration>
-		<location id="id53" x="-51" y="-204">
+		<location id="id54" x="-51" y="-204">
 			<name x="-68" y="-238">idle</name>
 		</location>
-		<location id="id54" x="-51" y="152">
+		<location id="id55" x="-51" y="152">
 			<name x="-136" y="161">packaging</name>
 			<label kind="invariant" x="-102" y="178">c&lt;=5</label>
 		</location>
-		<init ref="id53"/>
-		<transition id="id55">
-			<source ref="id54"/>
-			<target ref="id54"/>
+		<init ref="id54"/>
+		<transition id="id56">
+			<source ref="id55"/>
+			<target ref="id55"/>
 			<label kind="guard" x="-144" y="382">PackagingMachine_Queue&gt;1 &amp;&amp;
 ProductStorage_Level&lt;85 &amp;&amp; c==5</label>
 			<label kind="assignment" x="-144" y="416">PackagingMachine_Queue--,
@@ -511,9 +519,9 @@ ProductStorage_Level+=5</label>
 			<nail x="-127" y="382"/>
 			<nail x="68" y="382"/>
 		</transition>
-		<transition id="id56">
-			<source ref="id54"/>
-			<target ref="id54"/>
+		<transition id="id57">
+			<source ref="id55"/>
+			<target ref="id55"/>
 			<label kind="guard" x="229" y="289">PackagingMachine_Queue&gt;1 &amp;&amp;
 ProductStorage_Level&gt;=85 &amp;&amp; c==5 &amp;&amp;
 DoughMaker_State==REQUESTING</label>
@@ -523,9 +531,9 @@ ProductStorage_Level+=5</label>
 			<nail x="221" y="399"/>
 			<nail x="221" y="297"/>
 		</transition>
-		<transition id="id57">
-			<source ref="id54"/>
-			<target ref="id53"/>
+		<transition id="id58">
+			<source ref="id55"/>
+			<target ref="id54"/>
 			<label kind="guard" x="408" y="25">PackagingMachine_Queue==1 &amp;&amp;
 ProductStorage_Level&gt;=85 &amp;&amp;
 DoughMaker_State==PROCESSING &amp;&amp;
@@ -537,9 +545,9 @@ ProductStorage_Level+=5</label>
 			<nail x="476" y="102"/>
 			<nail x="476" y="-127"/>
 		</transition>
-		<transition id="id58">
-			<source ref="id54"/>
-			<target ref="id53"/>
+		<transition id="id59">
+			<source ref="id55"/>
+			<target ref="id54"/>
 			<label kind="guard" x="144" y="34">PackagingMachine_Queue==1 &amp;&amp;
 ProductStorage_Level&gt;=85 &amp;&amp;
 DoughMaker_State==REQUESTING &amp;&amp;
@@ -551,9 +559,9 @@ ProductStorage_Level+=5</label>
 			<nail x="212" y="76"/>
 			<nail x="212" y="-119"/>
 		</transition>
-		<transition id="id59">
-			<source ref="id53"/>
-			<target ref="id54"/>
+		<transition id="id60">
+			<source ref="id54"/>
+			<target ref="id55"/>
 			<label kind="synchronisation" x="-621" y="-59">CoolingRackFinishes1?</label>
 			<label kind="assignment" x="-637" y="-17">PackagingMachine_State=PACKAGING,
 PackagingMachine_Queue+=1,
@@ -561,9 +569,9 @@ c=0</label>
 			<nail x="-476" y="-204"/>
 			<nail x="-476" y="153"/>
 		</transition>
-		<transition id="id60">
-			<source ref="id54"/>
-			<target ref="id54"/>
+		<transition id="id61">
+			<source ref="id55"/>
+			<target ref="id55"/>
 			<label kind="guard" x="374" y="153">PackagingMachine_Queue==1 &amp;&amp;
 ProductStorage_Level&gt;=85 &amp;&amp; c==5 &amp;&amp;
 DoughMaker_State==PROCESSING</label>
@@ -574,9 +582,9 @@ ProductStorage_Level+=5</label>
 			<nail x="365" y="263"/>
 			<nail x="365" y="153"/>
 		</transition>
-		<transition id="id61">
-			<source ref="id54"/>
-			<target ref="id53"/>
+		<transition id="id62">
+			<source ref="id55"/>
+			<target ref="id54"/>
 			<label kind="guard" x="-119" y="42">PackagingMachine_Queue==1 &amp;&amp;
 ProductStorage_Level&lt;85 &amp;&amp;
 c==5</label>
@@ -584,9 +592,9 @@ c==5</label>
 PackagingMachine_Queue=0,
 ProductStorage_Level+=5</label>
 		</transition>
-		<transition id="id62">
-			<source ref="id53"/>
-			<target ref="id54"/>
+		<transition id="id63">
+			<source ref="id54"/>
+			<target ref="id55"/>
 			<label kind="synchronisation" x="-390" y="-51">CoolingRackFinishes2?</label>
 			<label kind="assignment" x="-407" y="17">PackagingMachine_State=PACKAGING,
 PackagingMachine_Queue+=1,
@@ -598,34 +606,35 @@ c=0</label>
 	<template>
 		<name>ProductStorage</name>
 		<parameter>id_type id</parameter>
-		<location id="id63" x="-17" y="-119">
+		<location id="id64" x="-17" y="-119">
 			<name x="-34" y="-153">idle</name>
 		</location>
-		<init ref="id63"/>
+		<init ref="id64"/>
 	</template>
 	<template>
 		<name>RestockingSystem</name>
 		<parameter>id_type id</parameter>
 		<declaration>clock c;</declaration>
-		<location id="id64" x="0" y="-144">
+		<location id="id65" x="0" y="-144">
 			<name x="-17" y="-178">idle</name>
 		</location>
-		<location id="id65" x="0" y="153">
+		<location id="id66" x="0" y="153">
 			<name x="-34" y="161">restocking</name>
+			<label kind="invariant" x="-17" y="178">c&lt;=10</label>
 		</location>
-		<init ref="id64"/>
-		<transition id="id66">
-			<source ref="id65"/>
-			<target ref="id64"/>
-			<label kind="guard" x="161" y="51">RestockingSystem_State==IDLE &amp;&amp;
-c==10</label>
-			<label kind="synchronisation" x="161" y="-25">Restock!</label>
+		<init ref="id65"/>
+		<transition id="id67">
+			<source ref="id66"/>
+			<target ref="id65"/>
+			<label kind="guard" x="153" y="85">c==10</label>
+			<label kind="synchronisation" x="153" y="-8">Restock!</label>
+			<label kind="assignment" x="153" y="-93">RestockingSystem_State==IDLE</label>
 			<nail x="153" y="153"/>
 			<nail x="153" y="-144"/>
 		</transition>
-		<transition id="id67">
-			<source ref="id64"/>
-			<target ref="id65"/>
+		<transition id="id68">
+			<source ref="id65"/>
+			<target ref="id66"/>
 			<label kind="synchronisation" x="-340" y="-76">RequestRawIngredients2?</label>
 			<label kind="assignment" x="-357" y="25">RestockingSystem_State=RESTOCKING,
 c=0</label>
